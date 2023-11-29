@@ -34,9 +34,10 @@ public class APIRunner {
 	}
 
 	public static void main(String[] args) throws Exception {
-		APIRunner runner = new APIRunner(); //AAAAAA
+		APIRunner runner = new APIRunner();
 		Javalin app = Javalin.create(config -> {});
 		// A demonstration of how to use co	de within an endpoint
+
 		app.get("/", ctx -> {
 			runner.getMyUnicorns();});  // Alltså metoden ovan
 		app.get("/{id}", ctx -> {
