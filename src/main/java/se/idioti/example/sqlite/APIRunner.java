@@ -27,13 +27,34 @@ public class APIRunner {
 		gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 	}
 
+	public void getMyUnicorns(){
+	storage.fetchUnicorns();
+
+	// Denna ska returera en lista av Unicorns.
+	}
+
 	public static void main(String[] args) throws Exception {
 		APIRunner runner = new APIRunner(); //AAAAAA
-		Javalin app = Javalin.create(config -> {})
-				// A demonstration of how to use code within an endpoint
-				.get("/", ctx -> { ctx.html("Hello, World!"); })
-				// Run the server on port 5000
-				.start(5000);
+		Javalin app = Javalin.create(config -> {});
+		// A demonstration of how to use co	de within an endpoint
+		app.get("/", ctx -> {
+			runner.getMyUnicorns();});  // Alltså metoden ovan
+		app.get("/{id}", ctx -> {
+
+		});
+		app.post("/", ctx -> {
+
+		});
+		app.put("/{id}",ctx -> {
+
+		});
+
+		app.delete("/{id}", ctx -> {
+
+		});
+
+		// Run the server on port 5000
+		app.start(5000);
 	}
 
 }
