@@ -57,7 +57,8 @@ public class APIRunner {
 			String id = ctx.pathParam("id");
 
 
-			ctx.html(runner.getUnicorn(Integer.parseInt(id)));
+
+			ctx.json(runner.getUnicorn(Integer.parseInt(id)));
 
 		});
 		app.post("/", ctx -> {
