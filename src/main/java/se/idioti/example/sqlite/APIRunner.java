@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * This demonstrates how to expose the storage through a REST API using Spark.
- * 
+ *
  * @author "Johan Holmberg, Malmö university"
  * @since 1.0
  */
@@ -31,21 +31,19 @@ public class APIRunner {
 
 	public String getMyUnicorns(){
 		List<Unicorn> unicorns = storage.fetchUnicorns();
-	String jsonArray = gson.toJson(unicorns);
+		String jsonArray = gson.toJson(unicorns);
 
-	// Denna ska returera en lista av Unicorns.
+		// Denna ska returera en lista av Unicorns.
 
-	return jsonArray;
+		return jsonArray;
 	}
 
 	public String getUnicorn(int id){
-		Unicorn unicorn = storage.fetchUnicorn(id);
-
-		return unicorn.toString();
+		return gson.toJson(storage.fetchUnicorn(id));
 	}
 
 	public static void main(String[] args) throws Exception {
-		int id = 0;
+
 		APIRunner runner = new APIRunner();
 		Javalin app = Javalin.create(config -> {});
 		// A demonstration of how to use co	de within an endpoint
@@ -56,11 +54,11 @@ public class APIRunner {
 			ctx.html(xxx);
 		});  // Alltså metoden ovan
 		app.get("/{id}", ctx -> {
+			String id = ctx.pathParam("id");
 
-			runner.getUnicorn(id);
 
+			ctx.html(runner.getUnicorn(Integer.parseInt(id)));
 
-			ctx.html("Du gav mig ett id: ");
 		});
 		app.post("/", ctx -> {
 
