@@ -3,6 +3,7 @@ package se.idioti.example.sqlite;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 
 import java.util.List;
 
@@ -42,6 +43,11 @@ public class APIRunner {
 		return gson.toJson(storage.fetchUnicorn(id));
 	}
 
+	public void addUnicorn(Unicorn unicorn){
+
+		storage.addUnicorn(unicorn);
+	};
+
 	public static void main(String[] args) throws Exception {
 
 		APIRunner runner = new APIRunner();
@@ -63,7 +69,8 @@ public class APIRunner {
 		});
 		app.post("/", ctx -> {
 
-		});
+			runner.createUnicorn(ctx); });
+
 		app.put("/{id}",ctx -> {
 
 		});
@@ -74,6 +81,11 @@ public class APIRunner {
 
 		// Run the server on port 5000
 		app.start(5000);
+	}
+
+	private void createUnicorn(Context ctx) {
+		Unicorn unicorn = gson.fromJson(ctx.body(), Unicorn.class);
+		storage.addUnicorn(unicorn);
 	}
 
 }
